@@ -45,3 +45,22 @@ while (invalid_config){
   # just in case
   if (counter == 100){break}
 }
+
+
+file_loc <- "????"
+
+for(i in nrow(fam_present)){
+  
+  file_contents <- paste0("Happy Christmas ", fam_present$name_g[i],
+                         ". You have to get a present for ", fam_present$name_r[i])
+    
+  write.table(x = file_contents,
+              file = paste0(file_loc,
+                            fam_present$name_g[i],
+                            '.txt'),
+              quote = FALSE,
+              row.names = FALSE,
+              col.names = FALSE)
+}
+
+
