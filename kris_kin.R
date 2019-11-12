@@ -1,15 +1,15 @@
 library(dplyr)
-set.seed(1)
+set.seed(42)
 
 # vector of participants
-fam <- data.frame(name = c('ange',
-                           'kev',
-                           'do',
-                           'cat',
-                           'aideen',
-                           'martin',
-                           'claire',
-                           'nathan'),
+fam <- data.frame(name = c('Angela',
+                           'Kev',
+                           'Donal',
+                           'Cat',
+                           'Aideen',
+                           'Martin',
+                           'Claire',
+                           'Nathan'),
                   couple = rep(1:4, each = 2)) %>% 
   mutate(index = 1:n())
 
@@ -47,11 +47,22 @@ while (invalid_config){
 }
 
 
-file_loc <- "????"
+file_loc <- "C:/Users/Home/Documents/Projects/kris_kindle/"
 
-for(i in nrow(fam_present)){
+for(i in 1:nrow(fam_present)){
   
-  file_contents <- paste0("Happy Christmas ", fam_present$name_g[i],
+  
+  joke <- httr::GET("https://icanhazdadjoke.com",
+                     httr::user_agent("dadjoke R package (https://github.com/jhollist/dadjoke)"),
+                     httr::accept("text/plain")) %>% 
+    httr::content("text", encoding = "UTF-8")
+  
+  
+  
+  file_contents <- paste0("A random Christmas cracker joke just for you:\n",
+                          joke,
+                          '\n\n',
+                          "Happy Christmas ", fam_present$name_g[i],
                          ". You have to get a present for ", fam_present$name_r[i])
     
   write.table(x = file_contents,
